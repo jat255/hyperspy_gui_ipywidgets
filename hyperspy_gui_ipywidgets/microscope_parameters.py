@@ -2,7 +2,8 @@
 import ipywidgets
 
 from hyperspy_gui_ipywidgets.utils import (
-    labelme, register_ipy_widget, add_display_arg, float2floattext, get_label)
+    labelme, register_ipy_widget, add_display_arg,
+    float2floattext, str2text, get_label)
 
 from link_traits import link
 
@@ -15,8 +16,12 @@ def _set_microscope_parameters(obj, **kwargs):
         if trait_name in ("mapping", "signal"):
             continue
         trait = traits[trait_name]
-        widget = float2floattext(
-            trait, get_label(trait, trait_name))
+        if trait_name in ("xray_source"):
+            widget = str2text(
+                trait, get_label(trait, trait_name))
+        else:
+            widget = float2floattext(
+                trait, get_label(trait, trait_name))
         widgets.append(widget)
         wdict[trait_name] = widget.children[1]
         link((obj, trait_name),
@@ -47,4 +52,9 @@ def eds_sem_microscope_parameter_ipy(obj, **kwargs):
 @register_ipy_widget(toolkey="microscope_parameters_EDS_TEM")
 @add_display_arg
 def eds_tem_microscope_parameter_ipy(obj, **kwargs):
+    return(_set_microscope_parameters(obj=obj, **kwargs))
+
+@register_ipy_widget(toolkey="microscope_parameters_EDS_XRF")
+@add_display_arg
+def eds_xrf_microscope_parameter_ipy(obj, **kwargs):
     return(_set_microscope_parameters(obj=obj, **kwargs))

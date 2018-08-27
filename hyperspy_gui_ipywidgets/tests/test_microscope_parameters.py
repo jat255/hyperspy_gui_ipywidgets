@@ -5,6 +5,7 @@ from hyperspy_gui_ipywidgets.tests.utils import KWARGS
 from hyperspy._signals.eels import EELSTEMParametersUI
 from hyperspy._signals.eds_sem import EDSSEMParametersUI
 from hyperspy._signals.eds_tem import EDSTEMParametersUI
+from hyperspy._signals.eds_xrf import EDSXRFParametersUI
 
 
 class TestSetMicroscopeParameters:
@@ -23,6 +24,8 @@ class TestSetMicroscopeParameters:
             mapping = EDSSEMParametersUI.mapping
         elif signal_type == "EDS_TEM":
             mapping = EDSTEMParametersUI.mapping
+        elif signal_type == "EDS_XRF":
+            mapping = EDSXRFParametersUI.mapping
         for key, widget in wd.items():
             if "button" not in key:
                 widget.value = random()
@@ -39,3 +42,6 @@ class TestSetMicroscopeParameters:
 
     def test_eds_sem(self):
         self._perform_t(signal_type="EDS_SEM")
+
+    def test_eds_xrf(self):
+        self._perform_t(signal_type="EDS_XRF")
