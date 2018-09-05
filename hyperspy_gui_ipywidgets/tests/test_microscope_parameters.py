@@ -27,7 +27,9 @@ class TestSetMicroscopeParameters:
         elif signal_type == "EDS_XRF":
             mapping = EDSXRFParametersUI.mapping
         for key, widget in wd.items():
-            if "button" not in key:
+            if key == "xray_source":
+                widget.value = "Rh"
+            elif "button" not in key:
                 widget.value = random()
         button = wd["store_button"]
         button._click_handlers(button)    # Trigger it
