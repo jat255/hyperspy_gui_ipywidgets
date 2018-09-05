@@ -103,5 +103,5 @@ ENV/
 # pytest cache
 .pytest_cache/
 
-# jetbrains files
+# Jetbrains settings
 .idea/
